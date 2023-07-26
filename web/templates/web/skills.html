@@ -1,0 +1,52 @@
+{% extends "web/base.html" %}
+{% block content %}
+{% if msg %}
+    <div class="alert alert-danger" role="alert">{{msg}}</div>
+{% endif %}
+<a href="/?deck_id={{deck_pokemon.deck_id}}">戻る</a>
+<div class="container">
+  <div style="background-color:#FFFFF0;">
+  <h4 class="card-title text-center">{{deck_pokemon.pokemon_view.name}}</h4>
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+      <img src="{{deck_pokemon.pokemon_view.icon}}" alt="img" class="card-img-top">
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    {% for skill_view in deck_pokemon.skill_views %}
+    <div class="col-md-auto border border-2 rounded">
+      <form method="POST" action="{% url 'web:delete_skill' %}" >
+        {% csrf_token %}
+        <input type="hidden" name="deck_set_id" value="{{deck_pokemon.deck_set_id}}">
+        <input type="hidden" name="skill_id" value="{{skill_view.id}}">
+        {{skill_view.name}} <span class="type_color_{{skill_view.type_id}} type_icon"> {{skill_view.type_name}} </span>
+          <button class="btn btn-default" type="submit">
+            <i class="bi bi-patch-minus" role="img" aria-label="delete"></i>
+          </button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+  <hr>
+  <h4 class="card-title text-center">技一覧</h4>
+  <div class="row justify-content-md-center">
+    {% for skill in skills %}
+    <div class="col-2 border-bottom border-start border-top border-1">
+      <form method="POST" action="{% url 'web:register_skill' %}" >
+        {% csrf_token %}
+        <input type="hidden" name="criteria" value="{{criteria}}">
+        <input type="hidden" name="deck_set_id" value="{{deck_pokemon.deck_set_id}}">
+        <input type="hidden" name="skill_id" value="{{skill.id}}">
+        <button class="btn btn-default" type="submit">
+          <i class="bi bi-patch-plus" role="img" aria-label="plus"></i>
+        </button> {{ skill.name }}
+      </form>
+    </div>
+      <div class="col-1 border-bottom border-end border-top border-1">
+          <span class="type_color_{{skill.type_id}} type_icon">{{skill.type_name}}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,125 @@
+.polaroid-wrapper {
+  display: flex; /* 画像を横並びにする */
+  justify-content: space-between;
+}
+.polaroid {
+  background-color: #fff; /* フレームの色 */
+  border: 1px solid #ccc; /* ボーダー */
+  padding: 10px 10px 20px; /* フレームの内側の余白 */
+  margin-bottom: 60px; /* フレーム下の余白 */
+  box-shadow: 0 10px 8px -6px #bebebe; /* ポラロイドに影をつける */
+  display: inline-block;
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 200px; /* ポラロイドの幅 */
+  position: relative; /* マスキングテープ用 */
+}
+.polaroid img {
+  display: block;
+  margin: 0 auto; /* 画像を中央寄せ */
+  height: 150px;
+}
+.polaroid-caption {
+  color: #757575; /* 文字色 */
+  font-size: 14px; /* 文字サイズ */
+  text-align: center; /* 文字を中央寄せ */
+}
+/* マスキングテープ */
+.masking-tape {
+  position: absolute;
+  top: -14px; /* マステの上からの位置 */
+  width: 80px; /* マステの幅 */
+  height: 30px; /* マステの高さ */
+  border-left: 2px dotted rgba(0,0,0,.1); /* マステの左のギザギザ */
+  border-right: 2px dotted rgba(0,0,0,.1); /* マステの右のギザギザ */
+  box-shadow: 0 0 5px rgba(0,0,0,.2); /* マステに影をつける */
+  transform: rotate(-4deg); /* マステを回転させる */
+  padding: 5px 15px; /* マステの内側の余白 */
+  background-color: #FAFF07; /* マステの色 */
+  color: #333; /* 文字色 */
+  font-size: 20px; /* 文字サイズ */
+  line-height: 1.4; /* 文字の行間 */
+  text-align: center; /* 文字を中央寄せ */
+}
+
+/* 767px（iPad）以下では縦並び */
+@media screen and (max-width: 767px) {
+.polaroid-wrapper {
+  display: block; /* 画像の横並びを解除 */
+}
+.polaroid {
+  width: 100%; /* ポラロイドの幅 */
+}
+}
+.pokemon-profile {
+}
+.type_icon {
+text-align: center;
+display:inline-block;
+border-radius: 40%;
+color:white;
+font-size: 11px;
+margin-left: 2px;
+width: 40px;
+height: 17px;
+}
+.type_color_1{
+    background-color: silver;
+}
+.type_color_2{
+    background-color: crimson;
+}
+.type_color_3{
+    background-color: cornflowerblue;
+}
+.type_color_4{
+    background-color: rebeccapurple;
+}
+.type_color_5{
+    background-color: darkgoldenrod;
+}
+.type_color_6{
+    background-color: sandybrown;
+}
+.type_color_7{
+    background-color: green;
+}
+.type_color_8{
+    background-color: indigo;
+}
+.type_color_9{
+    background-color: slategray;
+}
+.type_color_10{
+    background-color: coral;
+}
+.type_color_11{
+    background-color: lightskyblue;
+}
+.type_color_12{
+    background-color: mediumspringgreen;
+}
+.type_color_13{
+    background-color: gold;
+}
+.type_color_14{
+    background-color: violet;
+}
+.type_color_15{
+    background-color: cyan;
+}
+.type_color_16{
+    background-color: darkorange;
+}
+.type_color_17{
+    background-color: steelblue;
+}
+.type_color_18{
+    background-color: hotpink;
+}
+.type_color_19{
+    background-color: black;
+}
+.type_color_20{
+    background-color: black;
+}

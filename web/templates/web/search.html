@@ -1,0 +1,109 @@
+{% extends "web/base.html" %}
+{% block content %}
+<div class="p-3">
+{% if msg %}
+<div class="alert alert-danger" role="alert">{{msg}}</div>
+{% endif %}
+    <div class="d-flex flex-row">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <b>弱点をつけないタイプ: </b>
+                </div>
+                <div class="col-10">
+                    {% for weakness_type in type_compatibility %}
+                    <span class="type_color_{{weakness_type.id}} type_icon"> {{weakness_type.name}} </span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-6">
+                    {% if deck_pokemons|length > 0 %}
+                    {% for deck_pokemon in deck_pokemons %}
+                    <div class="row justify-content-md-center border-bottom border-1">
+                        <div class="col-3 d-flex text-left align-items-center">
+                            <a href="/skills?deck_set_id={{deck_pokemon.deck_set_id}}" style="color:inherit;text-decoration:none;"><i class="bi bi-pen"></i></a>
+                            <form method="POST" action="{% url 'web:delete_deck' %}" style="z-index:99;">
+                                {% csrf_token %}
+                                <input type="hidden" name="criteria" value="{{criteria}}">
+                                <input type="hidden" name="deck_set_id" value="{{deck_pokemon.deck_set_id}}">
+                                <input type="hidden" name="deck_id" value="{{deck_id}}">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="bi bi-trash3" role="img" aria-label="delete"></i>
+                                </button>
+                            </form>
+                            <img src="{{deck_pokemon.pokemon_view.icon}}" style="width:65px;" alt="img" class="card-img-top">
+                        </div>
+                    <div class="col-2 d-flex align-items-center text-center">
+                        <b>{{deck_pokemon.pokemon_view.name}}</b>
+                    </div>
+                        <div class="col-2 d-flex align-items-center text-center">
+                            <span class="type_color_{{deck_pokemon.pokemon_view.type1_id}} type_icon"> {{deck_pokemon.pokemon_view.type1_name}} </span>
+                            <span class="type_color_{{deck_pokemon.pokemon_view.type2_id}} type_icon ">{{deck_pokemon.pokemon_view.type2_name}} </span>
+                        </div>
+                        <div class="col-4 text-left ">
+                            {% for skill_view in deck_pokemon.skill_views %}
+                            <div class="row mt-0 d-flex align-items-center">
+                                <div class="col-9">
+                                    {{skill_view.name}}
+                                </div>
+                                <div class="col-3">
+                                    <span class="type_color_{{skill_view.type_id}} type_icon"> {{skill_view.type_name}} </span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>No hit</p>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    <form method="get" action="/">
+
+                        <div>
+                            <p>ポケモンの名前を入力してください。</p>
+                            <input type="hidden" name="deck_id" value="{{deck_id}}">
+                            <input type="text" name="criteria" placeholder="キーワードを入力" value="{{criteria}}">
+                            <input type="submit" value="検索">
+                        </div>
+                    </form>
+                    <p>ポケモン検索結果</p>
+                    {% if pokemon_views|length > 0 %}
+                    <div class="overflow-auto" style="height:80vh;">
+                        {% for pokemon_view in pokemon_views %}
+                        <div class="polaroid ">
+                            <form method="POST" action="{% url 'web:register_deck' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="criteria" value="{{criteria}}">
+                                <input type="hidden" name="deck_id" value="{{deck_id}}">
+                                <input type="hidden" name="pokemon_id" value="{{pokemon_view.id}}">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="bi bi-patch-plus" role="img" aria-label="plus"></i>
+                                </button>
+                            </form>
+                            <span class="masking-tape">No.{{pokemon_view.id}}</span>
+                            <img src="{{pokemon_view.icon}}" alt="{{pokemon_view.name}}">
+                            <div class="pokemon-profile">
+                                <p class="polaroid-caption">{{pokemon_view.name}}
+                                    <span class="type_color_{{pokemon_view.type1_id}} type_icon">
+                                        {{pokemon_view.type1_name}}
+                                    </span>
+                                    <span class="type_color_{{pokemon_view.type2_id}} type_icon ">
+                                        {{pokemon_view.type2_name}}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p>No hit</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
